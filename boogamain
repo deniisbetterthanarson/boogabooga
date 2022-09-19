@@ -1,0 +1,439 @@
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/deniisbetterthanarson/boogabooga/main/ui"))()
+local Window = Library.CreateLib("Arsons Gui", "DarkTheme")
+
+-- Main
+local Farm = Window:NewTab("Farm")
+local FarmSection = Farm:NewSection("Blood Plant")
+
+local Player = game:GetService("Players").LocalPlayer
+local Mouse = Player:GetMouse()
+local UIS = game:GetService("UserInputService")
+local GUIToggle = Enum.KeyCode.G
+
+FarmSection:NewButton("Plant Box", "Click to start palcing", function()
+local Amount = 1
+
+for i = 1, Amount do wait()
+
+local LocalPlayer = game:GetService("Players").LocalPlayer
+local RootPart = LocalPlayer.Character.HumanoidRootPart
+local cframe = RootPart.CFrame
+local Remote = game:GetService("ReplicatedStorage").Events.PlaceStructure
+ Remote:FireServer("Plant Box", cframe * CFrame.new(0, -3, -7), 0)
+ Remote:FireServer("Plant Box", cframe * CFrame.new(0, -2.5, -7), 0)
+ Remote:FireServer("Plant Box", cframe * CFrame.new(0, -2, -7), 0)
+ Remote:FireServer("Plant Box", cframe * CFrame.new(0, -3.2, -7), 0)
+ end
+end)
+
+FarmSection:NewButton("Blood", "[ to plant, ] to collect", function()
+    local placekey = "p"
+    local plantkey = "["
+    local collectkey = "]"
+    local amountofpots = 40  ----------------oh yeah i forgot to mention this but you actually need to have the leaves and sticks required to make x number of plant pots
+
+    ----------------no touchy below plz
+
+    local Player = game:GetService("Players").LocalPlayer
+    local Mouse = Player:GetMouse()
+
+    _G.plant = function()
+        for _, v in pairs(workspace.Deployables:GetChildren()) do
+            if v.Name == "Plant Box" and (Player.Character.Head.Position - v.PrimaryPart.Position).magnitude < 50 then
+                game.ReplicatedStorage.Events.InteractStructure:FireServer(v, "Bloodfruit")
+            end
+        end
+    end
+
+    _G.collect = function()
+        for _, v in pairs(workspace:GetChildren()) do
+            if v.Name == "Bloodfruit Bush" and (Player.Character.Head.Position - v.PrimaryPart.Position).magnitude < 50 then
+                game.ReplicatedStorage.Events.Pickup:FireServer(v)
+            end
+        end
+    end
+
+    Mouse.KeyUp:connect(function(k)
+        if k == placekey then
+            for i = 1, amountofpots do
+                game.ReplicatedStorage.Events.PlaceStructure:FireServer("Plant Box", Mouse.Hit, 0)
+            end
+        elseif k == plantkey then
+            _G.plant()
+        elseif k == collectkey then
+            _G.collect()
+        end
+    end)
+    end)
+
+    FarmSection:NewButton("Berry", "[ to plant, ] to collect", function()
+    local placekey = "p"
+    local plantkey = "["
+    local collectkey = "]"
+    local amountofpots = 40  ----------------oh yeah i forgot to mention this but you actually need to have the leaves and sticks required to make x number of plant pots
+
+    ----------------no touchy below plz
+
+    local Player = game:GetService("Players").LocalPlayer
+    local Mouse = Player:GetMouse()
+
+    _G.plant = function()
+        for _, v in pairs(workspace.Deployables:GetChildren()) do
+            if v.Name == "Plant Box" and (Player.Character.Head.Position - v.PrimaryPart.Position).magnitude < 50 then
+                game.ReplicatedStorage.Events.InteractStructure:FireServer(v, "Berry")
+            end
+        end
+    end
+
+    _G.collect = function()
+        for _, v in pairs(workspace:GetChildren()) do
+            if v.Name == "Berry Bush" and (Player.Character.Head.Position - v.PrimaryPart.Position).magnitude < 50 then
+                game.ReplicatedStorage.Events.Pickup:FireServer(v)
+            end
+        end
+    end
+
+    Mouse.KeyUp:connect(function(k)
+        if k == placekey then
+            for i = 1, amountofpots do
+                game.ReplicatedStorage.Events.PlaceStructure:FireServer("Plant Box", Mouse.Hit, 0)
+            end
+        elseif k == plantkey then
+            _G.plant()
+        elseif k == collectkey then
+            _G.collect()
+        end
+    end)
+    end)
+	
+	FarmSection:NewToggle("Afk Eat Bluefruit", "Click to toggle", function(state)
+    if state then
+        _G.autoEat = true;
+	while _G.autoEat == true do
+	local args = {[1] = "Bluefruit"}
+	game:GetService("ReplicatedStorage").Events.UseBagItem:FireServer(unpack(args))
+    wait(15)
+end
+    else
+        _G.autoEat = false;
+	while _G.autoEat == true do
+	local args = {[1] = "Bluefruit"}
+	game:GetService("ReplicatedStorage").Events.UseBagItem:FireServer(unpack(args))
+    wait(15)
+end
+    end
+end)
+
+    FarmSection:NewButton("Bluefruit", "[ to plant, ] to collect", function()
+    local placekey = "p"
+    local plantkey = "["
+    local collectkey = "]"
+    local amountofpots = 40  ----------------oh yeah i forgot to mention this but you actually need to have the leaves and sticks required to make x number of plant pots
+
+    ----------------no touchy below plz
+
+    local Player = game:GetService("Players").LocalPlayer
+    local Mouse = Player:GetMouse()
+
+    _G.plant = function()
+        for _, v in pairs(workspace.Deployables:GetChildren()) do
+            if v.Name == "Plant Box" and (Player.Character.Head.Position - v.PrimaryPart.Position).magnitude < 50 then
+                game.ReplicatedStorage.Events.InteractStructure:FireServer(v, "Bluefruit")
+            end
+        end
+    end
+
+    _G.collect = function()
+        for _, v in pairs(workspace:GetChildren()) do
+            if v.Name == "Bluefruit Bush" and (Player.Character.Head.Position - v.PrimaryPart.Position).magnitude < 50 then
+                game.ReplicatedStorage.Events.Pickup:FireServer(v)
+            end
+        end
+    end
+
+    Mouse.KeyUp:connect(function(k)
+        if k == placekey then
+            for i = 1, amountofpots do
+                game.ReplicatedStorage.Events.PlaceStructure:FireServer("Plant Box", Mouse.Hit, 0)
+            end
+        elseif k == plantkey then
+            _G.plant()
+        elseif k == collectkey then
+            _G.collect()
+        end
+    end)
+    end)
+
+    FarmSection:NewButton("Apples", "[ to plant, ] to collect", function()
+    local placekey = "p"
+    local plantkey = "["
+    local collectkey = "]"
+    local amountofpots = 40  ----------------oh yeah i forgot to mention this but you actually need to have the leaves and sticks required to make x number of plant pots
+
+    ----------------no touchy below plz
+
+    local Player = game:GetService("Players").LocalPlayer
+    local Mouse = Player:GetMouse()
+
+    _G.plant = function()
+        for _, v in pairs(workspace.Deployables:GetChildren()) do
+            if v.Name == "Plant Box" and (Player.Character.Head.Position - v.PrimaryPart.Position).magnitude < 50 then
+                game.ReplicatedStorage.Events.InteractStructure:FireServer(v, "Apple")
+            end
+        end
+    end
+
+    _G.collect = function()
+        for _, v in pairs(workspace:GetChildren()) do
+            if v.Name == "Apple Tree" and (Player.Character.Head.Position - v.PrimaryPart.Position).magnitude < 50 then
+                game.ReplicatedStorage.Events.Pickup:FireServer(v)
+            end
+        end
+    end
+
+    Mouse.KeyUp:connect(function(k)
+        if k == placekey then
+            for i = 1, amountofpots do
+                game.ReplicatedStorage.Events.PlaceStructure:FireServer("Plant Box", Mouse.Hit, 0)
+            end
+        elseif k == plantkey then
+            _G.plant()
+        elseif k == collectkey then
+            _G.collect()
+        end
+    end)
+    end)
+
+    local Combat = Window:NewTab("Combat")
+    local CombatSection = Combat:NewSection("Combat Scripts")
+
+    CombatSection:NewButton("Reach", "No Comment", function()
+    local bindableFunction= Instance.new("BindableFunction")
+    game.StarterGui:SetCore("SendNotification", { 
+        Title = "loading hitbox ...";
+        Text = "please wait idot";
+        Duration = 2;
+        callback = "1";
+    })
+    wait (5)
+    _G.HeadSize = 8 --phucc u bich
+    _G.Disabled = true 
+
+    game:GetService('RunService').RenderStepped:connect(function() 
+    if _G.Disabled then --phucc u bich
+    for i,v in next, game:GetService('Players'):GetPlayers() do 
+    if v.Name ~= game:GetService('Players').LocalPlayer.Name then 
+    pcall(function()
+    v.Character.HumanoidRootPart.Size = Vector3.new(_G.HeadSize,_G.HeadSize,_G.HeadSize) 
+    v.Character.HumanoidRootPart.Transparency = 1  --phucc u bich
+    v.Character.HumanoidRootPart.BrickColor = BrickColor.new("none") --phucc u bich
+    v.Character.HumanoidRootPart.Material = "glass" --phucc u bich
+    v.Character.HumanoidRootPart.CanCollide = false --phucc u bich
+    end)
+    end
+    end
+    end
+    end)
+    print("hitbox injected")
+    game.StarterGui:SetCore("SendNotification", {
+        Title = "its injected";
+        Text = "stop being big bot";
+        Duration = 6;
+        callback = 6;
+    })
+    game.StarterGui:SetCore("SendNotification", {
+        Title = "Booga Best Hitbox made by nerded tick#2167 :)";
+        Text = "Edit By : meee c;";
+        Duration = 6;
+        callback = 6;
+    })
+    end)
+
+    CombatSection:NewButton("Autoheal Blood", "press ` to toggle(next to 1 key)", function()
+    local Heal = "Bloodfruit"
+    local bind = '`'
+    -- Settings ^
+
+
+    local Humanoid = game.Players.LocalPlayer.Character.Humanoid
+    local Toggle = false
+    game:GetService('RunService').Heartbeat:connect(function()
+    if Toggle then
+        if Humanoid.Health ~= 100 then
+            game:GetService("ReplicatedStorage").Events.UseBagItem:FireServer(Heal)
+        end
+    end
+    end)
+
+    local mouse = game.Players.LocalPlayer:GetMouse()
+    mouse.KeyDown:connect(function(key)
+    if key == bind then
+        Toggle = not Toggle
+        print(Toggle)
+    end
+    end)
+    end)
+
+CombatSection:NewToggle("No Limit Blood", "Click to turn on and off", function(state)
+    if state then
+    _G.Bloodfruit = true
+      while _G.Bloodfruit == true and game:GetService("RunService").RenderStepped:wait() do
+        local args = {
+            [1] = "Bloodfruit"
+        }
+        
+        game:GetService("ReplicatedStorage").Events.UseBagItem:FireServer(unpack(args))        
+      end
+    else
+ _G.Bloodfruit = false
+      while _G.Bloodfruit == true and game:GetService("RunService").RenderStepped:wait(0.2) do
+        local args = {
+            [1] = "Bloodfruit"
+        }
+        
+        game:GetService("ReplicatedStorage").Events.UseBagItem:FireServer(unpack(args))        
+    end
+     end
+ end)
+
+ CombatSection:NewToggle("No Limit Berry", "Click to turn on and off", function(state)
+    if state then
+    _G.AutoBerry = true
+      while _G.AutoBerry == true and game:GetService("RunService").RenderStepped:wait() do
+        local args = {
+            [1] = "Berry"
+        }
+        
+        game:GetService("ReplicatedStorage").Events.UseBagItem:FireServer(unpack(args))        
+        end
+    else
+ _G.AutoBerry = false
+      while _G.AutoBerry == true and game:GetService("RunService").RenderStepped:wait(0.2) do
+        local args = {
+            [1] = "Berry"
+        }
+        
+        game:GetService("ReplicatedStorage").Events.UseBagItem:FireServer(unpack(args))        
+    end
+     end
+ end)
+
+ CombatSection:NewToggle("No Limit Bluefruit", "Click to turn on and off", function(state)
+    if state then
+    _G.AutoBerry = true
+      while _G.AutoBerry == true and game:GetService("RunService").RenderStepped:wait() do
+        local args = {
+            [1] = "Bluefruit"
+        }
+        
+        game:GetService("ReplicatedStorage").Events.UseBagItem:FireServer(unpack(args))        
+        end
+    else
+ _G.AutoBerry = false
+      while _G.AutoBerry == true and game:GetService("RunService").RenderStepped:wait(0.2) do
+        local args = {
+            [1] = "Bluefruit"
+        }
+        
+        game:GetService("ReplicatedStorage").Events.UseBagItem:FireServer(unpack(args))        
+    end
+     end
+ end)
+
+ local Misc = Window:NewTab("Misc")
+ local MiscSection = Misc:NewSection("Void Tp")
+ MiscSection:NewButton("Void Tp", "Click To Insta Tp", function()
+ game:GetService("TeleportService"):Teleport(10767870749)
+ end)
+
+    CombatSection:NewButton("Autoheal Berry", "press ` to toggle(next to 1 key)", function()
+    local Heal = "Berry"
+    local bind = '`'
+    -- Settings ^
+
+
+    local Humanoid = game.Players.LocalPlayer.Character.Humanoid
+    local Toggle = false
+    game:GetService('RunService').Heartbeat:connect(function()
+    if Toggle then
+        if Humanoid.Health ~= 100 then
+            game:GetService("ReplicatedStorage").Events.UseBagItem:FireServer(Heal)
+        end
+    end
+    end)
+
+    local mouse = game.Players.LocalPlayer:GetMouse()
+    mouse.KeyDown:connect(function(key)
+    if key == bind then
+        Toggle = not Toggle
+        print(Toggle)
+    end
+    end)
+    end)
+
+    CombatSection:NewButton("Esp", "No Comment", function()
+    --- Tut
+
+    local esp_settings = { ---- table for esp settings 
+        textsize = 8,
+        colour = 255,255,255
+    }
+
+    local gui = Instance.new("BillboardGui")
+    local esp = Instance.new("TextLabel",gui) ---- new instances to make the billboard gui and the textlabel
+
+
+
+    gui.Name = "Cracked esp"; ---- properties of the esp
+    gui.ResetOnSpawn = false
+    gui.AlwaysOnTop = true;
+    gui.LightInfluence = 0;
+    gui.Size = UDim2.new(1.75, 0, 1.75, 0);
+    esp.BackgroundColor3 = Color3.fromRGB(255, 255, 255);
+    esp.Text = ""
+    esp.Size = UDim2.new(0.0001, 0.00001, 0.0001, 0.00001);
+    esp.BorderSizePixel = 4;
+    esp.BorderColor3 = Color3.new(esp_settings.colour)
+    esp.BorderSizePixel = 0
+    esp.Font = "GothamSemibold"
+    esp.TextSize = esp_settings.textsize
+    esp.TextColor3 = Color3.fromRGB(esp_settings.colour) -- text colour
+
+    game:GetService("RunService").RenderStepped:Connect(function() ---- loops faster than a while loop :)
+    for i,v in pairs (game:GetService("Players"):GetPlayers()) do
+        if v ~= game:GetService("Players").LocalPlayer and v.Character.Head:FindFirstChild("Cracked esp")==nil  then -- craeting checks for team check, local player etc
+            esp.Text = "{"..v.Name.."}"
+            gui:Clone().Parent = v.Character.Head
+    end
+    end
+    end)
+    end)
+
+    CombatSection:NewButton("Trashtalk", "Q to spam", function()
+    local Player = game.Players.LocalPlayer
+    local TrashTalk = {"UR TRASH KID", "WASTE OF AIR", "GET SLAPPED", "CANT TALK PEOPLE GET GOOD", "HORRIBLE CLAN", "YOU'RE GARBAGE", "GET CLAPPED"}
+    local Mouse = Player:GetMouse()
+    local Cooldown = 0.5
+    local CooldownWaited = 0
+
+    local Key = "q"
+
+    function TalkTrash(k)
+	if k == Key and CooldownWaited == 0 then
+		game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(TrashTalk[math.random(1,#TrashTalk)], "All")
+		CooldownWaited = Cooldown
+		
+		repeat wait(Cooldown) CooldownWaited = 0 until CooldownWaited == 0
+	end
+    end
+
+    Mouse.KeyDown:Connect(TalkTrash)
+    end)
+
+    UIS.InputBegan:Connect(function(input, gp)
+	if gp then print(gp) end -- if like typing in chat or something then return (stops function in this case)
+	
+	if input.KeyCode == GUIToggle then
+		Library:ToggleUI()
+	end
+end) 
